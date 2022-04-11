@@ -1,0 +1,43 @@
+Unresolved Errors and Warnings
+1.
+# ERROR: 215 ns tb.axi_mst.inst.IF  : XILINX_NO_STRB_ADDRESS: Address is not aligned 
+with data width. Connection has been declared to No STRB. To downgrade, 
+use <hierarchy_path to VIP>.IF.set_xilinx_no_strb_address_check_to_warn(), or filter 
+using clr_xilinx_no_strb_address_check().
+# ** Error: [axi_mst_agent_monitor] (axi_vip_pkg.axi_monitor.axi_monitor__1.check_burst.
+NO_STRB) 355 ns : AXI Address (0x451b475b) cannot be unaligned when HAS_STRB is 0.
+
+Since the strobed write is not included in the RTL design file while generating the 
+bridge code, this error caused by the AXI VIP Master can be ignored.
+
+2.  (vip outputları ve benim sürmediklerimde gelen cblock hatalarını görmezden gel)
+# ** Warning: axi_intf.sv(38): (vopt-3838) Variable 'axi_rready' written by continuous 
+and procedural assignments. 
+# One of the assignments is implicit. See ./tb.sv(63). Variable is procedurally driven 
+by axi_rready in clocking block axi_master_cb. See (axi_intf.sv:40).
+
+This example warning occurs for all outputs of the AXI VIP, even though I don’t drive these signals. 
+Therefore, this warning can be ignored. 
+
+3.
+** Warning: ./apb_slave.sv(4): (vlog-13233) Design unit "apb_slave_sv_unit" already exists and will
+ be overwritten. Overwriting SystemVerilog $unit with different source files.
+
+** Warning: ./axi_master.sv(6): (vlog-13233) Design unit "axi_master_sv_unit" already exists and will
+ be overwritten. Overwriting SystemVerilog $unit with different source files.
+
+The warnings that are shown above are caused by the decleration of the axi_trans package inside the 
+apb_slave and axi_master classes. Since it is not possible to instantiate the axi_trans class using 
+another method, this warning will pop up till I found another way.
+
+4.
+** Warning: (vlog-13361) ./axi_vip_axi4pc.sv(1195): No trigger event inferred in disable expression.
+
+The warning stated above is sourced from the axi_vip_axi4pc SVA file and there are bunch of other similar 
+warnings. These warnings state that no trigger event inferred but I don't know the exact solution for these.
+
+
+
+
+
+
